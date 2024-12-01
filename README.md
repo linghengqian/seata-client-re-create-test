@@ -1,6 +1,6 @@
 # seata-client-re-create-test
 
-- For https://github.com/apache/shardingsphere/issues/29052 .
+- For https://github.com/apache/shardingsphere/issues/29052 and https://github.com/apache/incubator-seata/issues/7039 .
 
 - Verified unit test under Ubuntu 22.04.4 LTS with `SDKMAN!` and `Docker CE`.
 
@@ -50,9 +50,9 @@ $ ./mvnw -T 1C clean test
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running io.github.linghengqian.SimpleTest
-[ERROR] 2024-12-01 11:26:34.860 [main] o.a.s.config.ConfigurationFactory - failed to load non-spring configuration :not found service provider for : org.apache.seata.config.ConfigurationProvider
+[ERROR] 2024-12-01 11:40:24.972 [main] o.a.s.config.ConfigurationFactory - failed to load non-spring configuration :not found service provider for : org.apache.seata.config.ConfigurationProvider
 org.apache.seata.common.loader.EnhancedServiceNotFoundException: not found service provider for : org.apache.seata.config.ConfigurationProvider
-[ERROR] 2024-12-01 11:26:42.917 [main] o.a.s.c.r.n.NettyClientChannelManager - 0304 register RM failed.
+[ERROR] 2024-12-01 11:40:33.112 [main] o.a.s.c.r.n.NettyClientChannelManager - 0304 register RM failed.
 org.apache.seata.common.exception.FrameworkException: can not connect to services-server.
         at org.apache.seata.core.rpc.netty.NettyClientBootstrap.getNewChannel(NettyClientBootstrap.java:181)
         at org.apache.seata.core.rpc.netty.NettyPoolableFactory.makeObject(NettyPoolableFactory.java:58)
@@ -67,12 +67,12 @@ org.apache.seata.common.exception.FrameworkException: can not connect to service
         at org.apache.seata.core.rpc.netty.TmNettyRemotingClient.init(TmNettyRemotingClient.java:191)
         at org.apache.seata.tm.TMClient.init(TMClient.java:47)
         at org.apache.seata.tm.TMClient.init(TMClient.java:34)
-        at io.github.linghengqian.SimpleTest.extracted(SimpleTest.java:41)
-        at io.github.linghengqian.SimpleTest.lambda$test$1(SimpleTest.java:31)
+        at io.github.linghengqian.SimpleTest.extracted(SimpleTest.java:39)
+        at io.github.linghengqian.SimpleTest.lambda$test$1(SimpleTest.java:29)
         at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:49)
         at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:36)
         at org.junit.jupiter.api.Assertions.assertDoesNotThrow(Assertions.java:3199)
-        at io.github.linghengqian.SimpleTest.test(SimpleTest.java:31)
+        at io.github.linghengqian.SimpleTest.test(SimpleTest.java:29)
         at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
         at java.base/java.lang.reflect.Method.invoke(Method.java:580)
         at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:766)
@@ -145,7 +145,7 @@ org.apache.seata.common.exception.FrameworkException: can not connect to service
 Caused by: org.apache.seata.common.exception.FrameworkException: connect failed, can not connect to services-server.
         at org.apache.seata.core.rpc.netty.NettyClientBootstrap.getNewChannel(NettyClientBootstrap.java:176)
         ... 87 common frames omitted
-Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: 连接被拒绝: /127.0.0.1:32830
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: 连接被拒绝: /127.0.0.1:32836
 Caused by: java.net.ConnectException: 连接被拒绝
         at java.base/sun.nio.ch.Net.pollConnect(Native Method)
         at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
@@ -160,19 +160,19 @@ Caused by: java.net.ConnectException: 连接被拒绝
         at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
         at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
         at java.base/java.lang.Thread.run(Thread.java:1575)
-[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 14.30 s <<< FAILURE! -- in io.github.linghengqian.SimpleTest
-[ERROR] io.github.linghengqian.SimpleTest.test -- Time elapsed: 14.27 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: Unexpected exception thrown: org.apache.seata.common.exception.FrameworkException: can not connect to [127.0.0.1:32830]
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 14.57 s <<< FAILURE! -- in io.github.linghengqian.SimpleTest
+[ERROR] io.github.linghengqian.SimpleTest.test -- Time elapsed: 14.54 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception thrown: org.apache.seata.common.exception.FrameworkException: can not connect to [127.0.0.1:32836]
         at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
         at org.junit.jupiter.api.AssertDoesNotThrow.createAssertionFailedError(AssertDoesNotThrow.java:84)
         at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:53)
         at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:36)
         at org.junit.jupiter.api.Assertions.assertDoesNotThrow(Assertions.java:3199)
-        at io.github.linghengqian.SimpleTest.test(SimpleTest.java:31)
+        at io.github.linghengqian.SimpleTest.test(SimpleTest.java:29)
         at java.base/java.lang.reflect.Method.invoke(Method.java:580)
         at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
         at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-Caused by: org.apache.seata.common.exception.FrameworkException: can not connect to [127.0.0.1:32830]
+Caused by: org.apache.seata.common.exception.FrameworkException: can not connect to [127.0.0.1:32836]
         at org.apache.seata.core.rpc.netty.NettyClientChannelManager.doReconnect(NettyClientChannelManager.java:251)
         at org.apache.seata.core.rpc.netty.NettyClientChannelManager.doReconnect(NettyClientChannelManager.java:212)
         at org.apache.seata.core.rpc.netty.NettyClientChannelManager.initReconnect(NettyClientChannelManager.java:176)
@@ -180,8 +180,8 @@ Caused by: org.apache.seata.common.exception.FrameworkException: can not connect
         at org.apache.seata.core.rpc.netty.TmNettyRemotingClient.init(TmNettyRemotingClient.java:191)
         at org.apache.seata.tm.TMClient.init(TMClient.java:47)
         at org.apache.seata.tm.TMClient.init(TMClient.java:34)
-        at io.github.linghengqian.SimpleTest.extracted(SimpleTest.java:41)
-        at io.github.linghengqian.SimpleTest.lambda$test$1(SimpleTest.java:31)
+        at io.github.linghengqian.SimpleTest.extracted(SimpleTest.java:39)
+        at io.github.linghengqian.SimpleTest.lambda$test$1(SimpleTest.java:29)
         at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:49)
         ... 6 more
 
@@ -189,15 +189,15 @@ Caused by: org.apache.seata.common.exception.FrameworkException: can not connect
 [INFO] Results:
 [INFO] 
 [ERROR] Failures: 
-[ERROR]   SimpleTest.test:31 Unexpected exception thrown: org.apache.seata.common.exception.FrameworkException: can not connect to [127.0.0.1:32830]
+[ERROR]   SimpleTest.test:29 Unexpected exception thrown: org.apache.seata.common.exception.FrameworkException: can not connect to [127.0.0.1:32836]
 [INFO] 
 [ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  17.024 s (Wall Clock)
-[INFO] Finished at: 2024-12-01T11:26:44+08:00
+[INFO] Total time:  17.355 s (Wall Clock)
+[INFO] Finished at: 2024-12-01T11:40:34+08:00
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project seata-client-re-create-test: There are test failures.
 [ERROR] 
