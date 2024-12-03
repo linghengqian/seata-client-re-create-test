@@ -2,6 +2,7 @@ package io.github.linghengqian;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.seata.config.ConfigurationFactory;
 import org.apache.seata.core.rpc.netty.RmNettyRemotingClient;
 import org.apache.seata.core.rpc.netty.TmNettyRemotingClient;
 import org.apache.seata.rm.RMClient;
@@ -50,6 +51,7 @@ public class SimpleTest {
             }
             RmNettyRemotingClient.getInstance().destroy();
             TmNettyRemotingClient.getInstance().destroy();
+            ConfigurationFactory.reload();
             System.clearProperty("service.default.grouplist");
         }
     }
